@@ -56,7 +56,11 @@ func newApp(version string, stdin io.Reader, stdout io.Writer, fs afero.Fs) *cli
 		ExitErrHandler: func(context.Context, *cli.Command, error) {},
 		Flags: []cli.Flag{
 			&cli.BoolFlag{Name: flagNumber, Aliases: []string{"n"}, Usage: "number all output lines"},
-			&cli.BoolFlag{Name: flagNumberNonBlank, Aliases: []string{"b"}, Usage: "number nonempty output lines (overrides -n)"},
+			&cli.BoolFlag{
+				Name:    flagNumberNonBlank,
+				Aliases: []string{"b"},
+				Usage:   "number nonempty output lines (overrides -n)",
+			},
 		},
 		Action: action(stdin, stdout, fs),
 	}

@@ -12,6 +12,7 @@ import (
 )
 
 const (
+	name               = "cat"
 	flagNumber         = "number"
 	flagNumberNonBlank = "number-nonblank"
 )
@@ -38,7 +39,7 @@ func run(version string, args []string, stdin io.Reader, stdout, stderr io.Write
 	cmd.Writer = stdout
 	cmd.ErrWriter = stderr
 	if err := cmd.Run(context.Background(), args); err != nil {
-		_, _ = fmt.Fprintf(stderr, "cat: %v\n", err)
+		_, _ = fmt.Fprintf(stderr, name+": %v\n", err)
 		return 1
 	}
 	return 0
@@ -46,7 +47,7 @@ func run(version string, args []string, stdin io.Reader, stdout, stderr io.Write
 
 func newApp(version string, stdin io.Reader, stdout io.Writer, fs afero.Fs) *cli.Command {
 	return &cli.Command{
-		Name:            "cat",
+		Name:            name,
 		Version:         version,
 		Usage:           "concatenate files and print on the standard output",
 		UsageText:       usageText,
